@@ -1,0 +1,14 @@
+body {
+    background-color: lightpink;
+    padding-top: 35;
+}
+
+h1 {
+    color: white;
+    text-align: center;
+}
+
+#result {
+    color: white;
+    text-align: center;
+}
