@@ -16,20 +16,26 @@ function addworkweeks(startDate, numberOfWeeks) {
 }
 
 
+
+
+
 $(document).ready(function() {
   //get the element
   var element = document.getElementById("fmlacalendar");
+
   //Create the calendar
   var fmlaCalendar = jsCalendar.new(element);
 
-  //Add events
-  fmlaCalendar.onDateClick(function(event, date) {
+  function setDate(event, date) {
     fmlaCalendar.clearselect();
     fmlaCalendar.set(date);
     var listOfDates = addworkweeks(date, 12);
     fmlaCalendar.select(listOfDates);
     var lastDate = listOfDates[listOfDates.length - 1];
     $("#result").html("12 weeks from " + moment(date).format("MM/DD/YYYY") + " is " + moment(lastDate).format("MM/DD/YYYY"));
+  };
 
-  });
+  //Add events
+  fmlaCalendar.onDateClick(setDate);
+  setDate({}, new Date());
 });

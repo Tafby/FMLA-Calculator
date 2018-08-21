@@ -1,14 +1,12 @@
 body {
-    background-color: lightpink;
-    padding-top: 35;
+    background-color: #FEDCEE;
 }
 
 h1 {
-    color: white;
+    color: black;
     text-align: center;
 }
 
 #result {
-    color: white;
-    text-align: center;
+    color: black;
 }
