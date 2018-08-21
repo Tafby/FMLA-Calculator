@@ -2,26 +2,34 @@ function addworkweeks(startDate, numberOfWeeks) {
   if (!numberOfWeeks) { numberOfWeeks = 12; }
   var numberOfDays = numberOfWeeks * 5;
   var count = 0;
-  var currentDate = startDate;
+  var currentDate = moment(startDate);
+  var arrayOfDates = [];
   while(count < numberOfDays) {
     currentDate.add(1, "day");
     if (currentDate.day() === 0 || currentDate.day() === 6 || currentDate.isHoliday()) {
       continue;
     }
+    arrayOfDates.push(currentDate.toDate());
     count++;
   }
-  return currentDate;
+  return arrayOfDates;
 }
 
 
 $(document).ready(function() {
-  var picker = new Pikaday({ field: $('#myDate')[0] });
-  $( "#myDate" ).change(function() {
-    var input = $('#myDate').val();
-    var day = moment(input);
-    var futureDate = addworkweeks(moment(input), 2);
-    //var futureDate = moment(input).add(12, "weeks");
-    $("#result").html("12 weeks from " + day.format("MM/DD/YYYY") + " is " + futureDate.format("MM/DD/YYYY"));
+  //get the element
+  var element = document.getElementById("fmlacalendar");
+  //Create the calendar
+  var fmlaCalendar = jsCalendar.new(element);
+
+  //Add events
+  fmlaCalendar.onDateClick(function(event, date) {
+    fmlaCalendar.clearselect();
+    fmlaCalendar.set(date);
+    var listOfDates = addworkweeks(date, 12);
+    fmlaCalendar.select(listOfDates);
+    var lastDate = listOfDates[listOfDates.length - 1];
+    $("#result").html("12 weeks from " + moment(date).format("MM/DD/YYYY") + " is " + moment(lastDate).format("MM/DD/YYYY"));
 
   });
 });
